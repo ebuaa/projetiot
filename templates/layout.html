@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Weather IoT{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+
+<body class="container">
+    <nav>
+        <ul>
+            <li><strong>Projet IoT</strong></li>
+        </ul>
+        <ul>
+            <li><a href="#">Accueil</a></li>
+            <li><a href="#">Rajouter</a></li>
+            <li><a href="#" role="button" id="mode-toggle">Light/Dark</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+    </footer>
+</body>
+
+</html>

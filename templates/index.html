@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather IoT</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+
+<body class="container">
+    <nav>
+        <ul>
+            <li><strong>Projet IoT</strong></li>
+        </ul>
+        <ul>
+            <li><a href="#">Accueil</a></li>
+            <li><a href="#">Rajouter</a></li>
+            <li><a href="#" role="button" id="mode-toggle">Light/Dark</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <table>
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Temperature</th>
+                <th scope="col">Humidite</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">id</th>
+                <td></td>
+                <td></td>
+                <td><a>Supprimer</a></td>
+              </tr>
+              <tr>
+                <th scope="row">id</th>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">id</th>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <!-- <tr>
+                <th scope="col">#</th>
+                <td scope="col">Total</td>
+                <td scope="col">Total</td>
+                <td scope="col">Total</td>
+                <td scope="col">Total</td>
+                <td scope="col">Total</td>
+              </tr> -->
+            </tfoot>
+          </table>
+    </main>
+<footer>
+</footer>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+    const modeToggleBtn = document.getElementById('mode-toggle');
+    const body = document.body;
+
+    // Check user's preference for dark mode
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    // Set initial mode based on user's preference
+    body.classList.toggle('dark-mode', prefersDarkMode);
+
+    // Toggle between light and dark mode
+    modeToggleBtn.addEventListener('click', function () {
+        body.classList.toggle('dark-mode');
+    });
+});
+
+</script>
+</body>
+
+</html>

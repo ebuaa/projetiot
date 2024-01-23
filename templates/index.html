@@ -2,43 +2,55 @@
 {% block title %}Accueil - Weather IoT{% endblock %}
 {% block content %}
 
-<style>
-  th,td {
-    text-align: center;
-  }
-</style>
+<div class="graphs-flexbox-grid">
+  <div>
+    <canvas id="temperatureChart" width="200" height="100"></canvas>
+  </div>
+  <div>
+    <canvas id="humidityChart" width="200" height="100"></canvas>
+  </div>
+  <div>
+    <canvas id="pressureChart" width="200" height="100"></canvas>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Temperature</th>
-      <th scope="col">Humidite</th>
-      <th scope="col"><i data-feather="trash"></i></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">id</th>
-      <td></td>
-      <td></td>
-      <td><a>Supprimer</a></td>
-    </tr>
-    <tr>
-      <th scope="row">id</th>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th scope="row">id</th>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <!-- <tr>
+
+<article>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col"><i data-feather="thermometer"></i>Temperature</th>
+        <th scope="col"><i data-feather="droplet"></i>Humidite</th>
+        <th scope="col"><i data-feather="clock"></i>Pressure</th>
+        <th scope="col"><i data-feather="trash"></i></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">id</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><a>Supprimer</a></td>
+      </tr>
+      <tr>
+        <th scope="row">id</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row">id</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <!-- <tr>
                 <th scope="col">#</th>
                 <td scope="col">Total</td>
                 <td scope="col">Total</td>
@@ -46,6 +58,36 @@
                 <td scope="col">Total</td>
                 <td scope="col">Total</td>
               </tr> -->
-  </tfoot>
-</table>
+    </tfoot>
+  </table>
+</article>
+
+<script>
+  // Sample data, replace with your actual data
+  var temperatureData = [20, 25, 22, 18, 23];
+  var humidityData = [50, 60, 55, 45, 58];
+  var pressureData = [1010, 1012, 1008, 1015, 1010];
+
+  // Function to create a chart
+  function createChart(canvasId, label, data) {
+    var ctx = document.getElementById(canvasId).getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['1', '2', '3', '4', '5'],
+        datasets: [{
+          label: label,
+          borderColor: 'rgb(75, 192, 192)',
+          data: data,
+        }]
+      }
+    });
+  }
+
+  // Create charts
+  createChart('temperatureChart', 'Temperature', temperatureData);
+  createChart('humidityChart', 'Humidity', humidityData);
+  createChart('pressureChart', 'Pressure', pressureData);
+</script>
+
 {% endblock %}

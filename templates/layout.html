@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Weather IoT{% endblock %}</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="container">
@@ -15,8 +17,6 @@
             <li><strong>Projet IoT</strong></li>
         </ul>
         <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="/add">Rajouter</a></li>
             <li>
                 <details role="list">
                     <summary aria-haspopup="listbox">Theme</summary>
@@ -27,13 +27,15 @@
                     </ul>
                 </details>
             </li>
+            <li><a href="/login" class="outline contrast" role="button">Login<i data-feather="log-in"></i></a></li>
         </ul>
     </nav>
 
     <main>
         {% block content %}{% endblock %}
     </main>
-    <footer>
+    <footer class="text-center">
+        <cite>- Made with<i data-feather="heart" class="heart"></i> by Axel, Guillame, Ali, Anastasios -</cite>
     </footer>
 
     <!-- <button id="mode-toggle" class="btn" onclick="toggleTheme()">Toggle Theme</button> -->

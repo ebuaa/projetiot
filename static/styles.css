@@ -1,31 +1,40 @@
 body {
-    min-height: 100vh;
-  }
-  
-  th,
-  td {
-    text-align: center;
-    text-justify: center;
-  }
-  
-  svg {
-    margin: 0.3rem;
-  }
-  
-  .heart {
-    color: #e53935;
-  }
-  
-  .graphs-flexbox-grid {
-    --min: 10ch;
-    --gap: 1rem;
-  
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: var(--gap);
-  }
-  
-  .smol-flexbox-grid>* {
-    flex: 1 1 var(--min);
-  }
+  min-height: 100vh;
+}
+
+th,
+td {
+  text-align: center;
+  text-justify: center;
+}
+
+svg {
+  margin: 0.3rem;
+}
+
+.heart {
+  color: #e53935;
+}
+
+.graphs-flexbox-grid {
+  --min: 10ch;
+  --gap: 1rem;
+
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: var(--gap);
+}
+
+.graphs-flexbox-grid>* {
+  flex: 1 1 var(--min);
+}
+
+/* Add this style in your styles.css or in a style block in your HTML */
+.icon-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+

@@ -4,13 +4,13 @@
 
 <div class="graphs-flexbox-grid">
   <div>
-    <canvas id="temperatureChart" width="200" height="100"></canvas>
+    <canvas id="temperatureChart"></canvas>
   </div>
   <div>
-    <canvas id="humidityChart" width="200" height="100"></canvas>
+    <canvas id="humidityChart"></canvas>
   </div>
   <div>
-    <canvas id="pressureChart" width="200" height="100"></canvas>
+    <canvas id="pressureChart"></canvas>
   </div>
 </div>
 
@@ -20,12 +20,31 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col"><i data-feather="thermometer"></i>Temperature</th>
-        <th scope="col"><i data-feather="droplet"></i>Humidite</th>
-        <th scope="col"><i data-feather="clock"></i>Pressure</th>
-        <th scope="col"><i data-feather="trash"></i></th>
+        <th scope="col" class="text-center">
+          <div class="icon-text-container" style="color: #8e24aa;">
+            <i data-feather="thermometer"></i><br>
+            Temperature
+          </div>
+        </th>
+        <th scope="col" class="text-center">
+          <div class="icon-text-container" style="color: #3949ab;">
+            <i data-feather="droplet"></i><br>
+            Humidity
+          </div>
+        </th>
+        <th scope="col" class="text-center">
+          <div class="icon-text-container" style="color: #00897b;">
+            <i data-feather="clock"></i><br>
+            Pressure
+          </div>
+        </th>
+        <th scope="col">
+          <i data-feather="trash"></i>
+        </th>
       </tr>
     </thead>
+
+
     <tbody>
       <tr>
         <th scope="row">id</th>
@@ -69,7 +88,7 @@
   var pressureData = [1010, 1012, 1008, 1015, 1010];
 
   // Function to create a chart
-  function createChart(canvasId, label, data) {
+  function createChart(canvasId, label, data, color) {
     var ctx = document.getElementById(canvasId).getContext('2d');
     new Chart(ctx, {
       type: 'line',
@@ -77,7 +96,7 @@
         labels: ['1', '2', '3', '4', '5'],
         datasets: [{
           label: label,
-          borderColor: 'rgb(75, 192, 192)',
+          borderColor: color,
           data: data,
         }]
       }
@@ -85,9 +104,9 @@
   }
 
   // Create charts
-  createChart('temperatureChart', 'Temperature', temperatureData);
-  createChart('humidityChart', 'Humidity', humidityData);
-  createChart('pressureChart', 'Pressure', pressureData);
+  createChart('temperatureChart', 'Temperature', temperatureData,"#8e24aa");
+  createChart('humidityChart', 'Humidity', humidityData,"#3949ab");
+  createChart('pressureChart', 'Pressure', pressureData,"#00897b");
 </script>
 
 {% endblock %}

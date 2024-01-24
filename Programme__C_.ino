@@ -157,13 +157,13 @@ void createJSONFile() {
   int httpResponseCode = http.POST(jsonString);
 
   if (httpResponseCode > 0) {
-    Display.print("HTTP Response code: ");
-    Display.println(httpResponseCode);
+    display.print("HTTP Response code: ");
+    display.println(httpResponseCode);
   } else {
-    Display.print("HTTP Request failed. Error code: ");
-    Display.println(httpResponseCode);
+    display.print("HTTP Request failed. Error code: ");
+    display.println(httpResponseCode);
   }
-
+s
   http.end();
 
   delay(5000);

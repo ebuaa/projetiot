@@ -138,24 +138,27 @@ void calculateAndDisplayAverages() {
 }
 
 void createJSONFile() {
-  String url = "http://172.20.10.2:5000/writable";
-  url += "Temperature_moyenne=" + String(Temperature_moyenne);
-  url += "&Humidite_moyenne=" + String(Humidite_moyenne);
-  url += "&Pression_moyenne=" + String(Pression_moyenne);
+  DynamicJsonDocument doc(1024);
+
+  doc["Temperature_moyenne"] = Temperature_moyenne;
+  doc["Humidite_moyenne"] = Humidite_moyenne;
+  doc["Pression_moyenne"] = Pression_moyenne;
+
+  String jsonString;
+  serializeJson(doc, jsonString);
 
   WiFiClient client;
   HTTPClient http;
-  
-  http.begin(client, url);
-
-  int httpResponseCode = http.GET();
+  http.begin(client, "http://172.20.10.2:5000/writejson");
+  http.addHeader("Content-Type": "application/json");
+  int httpResponseCode = http.POST(jsonString);
 
   if (httpResponseCode > 0) {
-    display.print("HTTP Response code: ");
-    display.println(httpResponseCode);
+    Serial.print("HTTP Response code: ");
+    Serial.println(httpResponseCode);
   } else {
-    display.print("HTTP Request failed. Error code: ");
-    display.println(httpResponseCode);
+    Serial.print("HTTP Request failed. Error code: ");
+    Serial.println(httpResponseCode);
   }
 
   http.end();

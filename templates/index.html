@@ -14,44 +14,54 @@
   </div>
 </div>
 
+<!-- <div class="grid">
+  <div>
+    <canvas id="temperatureChart"></canvas>
+  </div>
+  <div>
+    <canvas id="humidityChart"></canvas>
+  </div>
+  <div>
+    <canvas id="pressureChart"></canvas>
+  </div>
+</div> -->
 
 <article>
   <table>
     <thead>
       <tr>
-        <th scope="col">#</th>
+        <th scope="col"></th>
         <th scope="col" class="text-center">
-          <div class="icon-text-container" style="color: #8e24aa;">
+          <div class="icon-text-container" style="color: #f4511e;">
             <i data-feather="thermometer"></i><br>
             Temperature
           </div>
         </th>
         <th scope="col" class="text-center">
-          <div class="icon-text-container" style="color: #3949ab;">
+          <div class="icon-text-container" style="color: #039be5;">
             <i data-feather="droplet"></i><br>
             Humidity
           </div>
         </th>
         <th scope="col" class="text-center">
-          <div class="icon-text-container" style="color: #00897b;">
+          <div class="icon-text-container" style="color: #c0ca33;">
             <i data-feather="clock"></i><br>
             Pressure
           </div>
         </th>
-        <th scope="col">
-          <i data-feather="trash"></i>
-        </th>
+        <th scope="col"></th>
       </tr>
     </thead>
 
 
     <tbody>
       <tr>
-        <th scope="row">id</th>
+        <th scope="row"></th>
         <td></td>
         <td></td>
         <td></td>
-        <td><a>Supprimer</a></td>
+        <td><a style="color: #3949ab;"><i data-feather="trash"></i>
+          </a></td>
       </tr>
       <tr>
         <th scope="row">id</th>
@@ -104,9 +114,9 @@
   }
 
   // Create charts
-  createChart('temperatureChart', 'Temperature', temperatureData,"#8e24aa");
-  createChart('humidityChart', 'Humidity', humidityData,"#3949ab");
-  createChart('pressureChart', 'Pressure', pressureData,"#00897b");
+  createChart('temperatureChart', 'Temperature', temperatureData, "#f4511e");
+  createChart('humidityChart', 'Humidity', humidityData, " #039be5");
+  createChart('pressureChart', 'Pressure', pressureData, "#c0ca33");
 </script>
 
 {% endblock %}

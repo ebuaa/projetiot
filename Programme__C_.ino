@@ -149,8 +149,11 @@ void createJSONFile() {
 
   WiFiClient client;
   HTTPClient http;
+
   http.begin(client, "http://172.20.10.2:5000/writejson");
-  http.addHeader('Content-Type': 'application/json');
+  http.addHeader("Content-Type", "application/json");
+
+
   int httpResponseCode = http.POST(jsonString);
 
   if (httpResponseCode > 0) {

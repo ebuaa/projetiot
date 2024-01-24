@@ -4,13 +4,32 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
 #include <SD.h>
-#include <ArduinoJson.h> 
+#include <ArduinoJson.h>
+#include <ESP8266WiFi.h>
 
 #define SCREEN_WIDTH 128  
 #define SCREEN_HEIGHT 64  
 
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+
+const char* ssid = "iPhone de Axel";
+const char* password = "rivenisbae";
+
+void setup() {
+  // Débute la communication série pour le débogage
+  Serial.begin(115200);
+
+  // Connecte le module ESP8266 au réseau WiFi
+  WiFi.begin(ssid, password);
+  
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.println("Connecting to WiFi...");
+  }
+
+  Serial.println("Connected to WiFi");
+}
 
 // Declaration pour BME280 sensor
 Adafruit_BME280 bme;

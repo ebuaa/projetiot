@@ -1,17 +1,17 @@
-import flask
+from flask import Flask, render_template, request, jsonify
 import sqlite3
  
-app = flask.Flask(__name__, template_folder='templates')
+app = Flask(__name__, template_folder='templates')
  
  # Ajouter les relevés 
 
 @app.route('/api/releves', methods=['POST'])
 def ajouter_releve():
-    humidite = flask.request.json['humidite']
-    temperature = flask.request.json['temperature']
-    pression = flask.request.json['pression']
-    horodatage = flask.request.json['horodatage']
-    id_sonde = flask.request.json['id_sonde']
+    humidite = request.json['humidite']
+    temperature = request.json['temperature']
+    pression = request.json['pression']
+    horodatage = request.json['horodatage']
+    id_sonde = request.json['id_sonde']
  
     conn = sqlite3.connect("weather.db")
     cursor = conn.cursor()
@@ -19,7 +19,7 @@ def ajouter_releve():
     conn.commit()
     conn.close()
  
-    return flask.jsonify({
+    return jsonify({
          "message": "Relevé ajouté"
       })
  
@@ -47,15 +47,15 @@ def recuperer_releves():
         liste_releves.append(dictionnaire_releves)
  
  
-    return flask.jsonify(liste_releves)
+    return jsonify(liste_releves)
 
 
 # Ajouter des utilisateurs 
 
 @app.route('/api/utilisateurs', methods=['POST'])
-def ajouter_releve():
-    identifiant = flask.request.json['identifiant']
-    mot_de_passe = flask.request.json['mot_de_passe']
+def ajouter_utilisateurs():
+    identifiant = request.json['identifiant']
+    mot_de_passe = request.json['mot_de_passe']
  
     conn = sqlite3.connect("weather.db")
     cursor = conn.cursor()
@@ -63,7 +63,7 @@ def ajouter_releve():
     conn.commit()
     conn.close()
  
-    return flask.jsonify({
+    return jsonify({
          "message": "Utilisateur ajouté"
       })
  
@@ -87,6 +87,12 @@ def recuperer_utilisateurs():
         liste_utilisateurs.append(dictionnaire_utilisateurs)
  
  
-    return flask.jsonify(liste_utilisateurs)
+    return jsonify(liste_utilisateurs)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)

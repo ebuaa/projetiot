@@ -3,7 +3,7 @@ import sqlite3
  
 app = Flask(__name__, template_folder='templates')
 
-@app.route('/writable', methods=['POST'])
+@app.route('/writable', methods=['GET'])
 def writable():
     try:
         temperature_moyenne = request.json.get('Temperature_moyenne')

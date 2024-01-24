@@ -11,7 +11,7 @@ cursor.execute('''
     (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         identifiant TEXT NOT NULL,
-        mot_de_passe TEXT NOT NULL,
+        mot_de_passe TEXT NOT NULL
     )
 ''')
 
@@ -20,7 +20,7 @@ cursor.execute('''
     CREATE TABLE IF NOT EXISTS Sonde
     (
         id_sonde INTEGER PRIMARY KEY AUTOINCREMENT,
-        active BOOL NOT NULL,
+        active BOOL NOT NULL
     )
 ''')
 
@@ -33,6 +33,7 @@ cursor.execute('''
         temperature FLOAT NOT NULL,
         pression FLOAT NOT NULL,
         horodatage DATETIME NOT NULL,
+        id_sonde INTEGER NOT NULL,
         FOREIGN KEY(id_sonde) REFERENCES Sonde(id_sonde)
     )
 ''')

@@ -149,21 +149,18 @@ void createJSONFile() {
 
   WiFiClient client;
   HTTPClient http;
-
   http.begin(client, "http://172.20.10.2:5000/writejson");
   http.addHeader("Content-Type", "application/json");
-
-
   int httpResponseCode = http.POST(jsonString);
 
   if (httpResponseCode > 0) {
-    display.print("HTTP Response code: ");
-    display.println(httpResponseCode);
+    Serial.print("HTTP Response code: ");
+    Serial.println(httpResponseCode);
   } else {
-    display.print("HTTP Request failed. Error code: ");
-    display.println(httpResponseCode);
+    Serial.print("HTTP Request failed. Error code: ");
+    Serial.println(httpResponseCode);
   }
-s
+
   http.end();
 
   delay(5000);

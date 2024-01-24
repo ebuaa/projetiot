@@ -3,17 +3,16 @@ import sqlite3
  
 app = Flask(__name__, template_folder='templates')
 
-@app.route('/writable', methods=['GET', 'POST'])
+@app.route('/writejson', methods=['GET'])
 def writable():
     try:
         temperature_moyenne = request.json.get('Temperature_moyenne')
         humidite_moyenne = request.json.get('Humidite_moyenne')
         pression_moyenne = request.json.get('Pression_moyenne')
 
-        # Optionally, you can insert this data into your database
         conn = sqlite3.connect("weather.db")
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO Releve (temperature_releve, humidite_releve, pression_releve) VALUES (?,?,?)',
+        cursor.execute('INSERT INTO Releves (temperature, humidite, pression) VALUES (?,?,?)',
                        (temperature_moyenne, humidite_moyenne, pression_moyenne))
         conn.commit()
         conn.close()
@@ -30,12 +29,11 @@ def ajouter_releve():
     humidite = request.json['humidite']
     temperature = request.json['temperature']
     pression = request.json['pression']
-    horodatage = request.json['horodatage']
     id_sonde = request.json['id_sonde']
  
     conn = sqlite3.connect("weather.db")
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO Releve (humidite_releve, temperature_releve, pression_releve, horodatage_releve, id_sonde) VALUES (?,?,?,?,?)', (humidite,temperature,pression,horodatage, id_sonde))
+    cursor.execute('INSERT INTO Releves (humidite, temperature, pression, id_sonde) VALUES (?,?,?,?)', (humidite, temperature, pression, id_sonde))
     conn.commit()
     conn.close()
  
@@ -61,8 +59,7 @@ def recuperer_releves():
                                 'humidite': releve[1],
                                 'temperature': releve[2],
                                 'pression': releve[3],
-                                'horodatage': releve[4],
-                                'id_sonde' : releve[5]
+                                'id_sonde' : releve[4]
                                 }
         liste_releves.append(dictionnaire_releves)
  

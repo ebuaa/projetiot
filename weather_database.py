@@ -32,7 +32,6 @@ cursor.execute('''
         humidite INT NOT NULL,
         temperature FLOAT NOT NULL,
         pression FLOAT NOT NULL,
-        horodatage DATETIME NOT NULL,
         id_sonde INTEGER NOT NULL,
         FOREIGN KEY(id_sonde) REFERENCES Sonde(id_sonde)
     )

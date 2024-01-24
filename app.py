@@ -30,7 +30,7 @@ def ajouter_releve():
 def recuperer_releves():
     conn = sqlite3.connect("weather.db")
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM releve')
+    cursor.execute('SELECT * FROM Releves')
     releves = cursor.fetchall()
     conn.close()
  

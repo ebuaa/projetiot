@@ -2,6 +2,26 @@ from flask import Flask, render_template, request, jsonify
 import sqlite3
  
 app = Flask(__name__, template_folder='templates')
+
+@app.route('/writable', methods=['POST'])
+def writable():
+    try:
+        temperature_moyenne = request.json.get('Temperature_moyenne')
+        humidite_moyenne = request.json.get('Humidite_moyenne')
+        pression_moyenne = request.json.get('Pression_moyenne')
+
+        # Optionally, you can insert this data into your database
+        conn = sqlite3.connect("weather.db")
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO Releve (temperature_releve, humidite_releve, pression_releve) VALUES (?,?,?)',
+                       (temperature_moyenne, humidite_moyenne, pression_moyenne))
+        conn.commit()
+        conn.close()
+
+        return jsonify({"message": "Data received successfully"})
+
+    except Exception as e:
+        return jsonify({"error": str(e)})
  
  # Ajouter les relevés 
 

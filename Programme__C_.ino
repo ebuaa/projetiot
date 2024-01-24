@@ -157,11 +157,11 @@ void createJSONFile() {
   int httpResponseCode = http.POST(jsonString);
 
   if (httpResponseCode > 0) {
-    Serial.print("HTTP Response code: ");
-    Serial.println(httpResponseCode);
+    Display.print("HTTP Response code: ");
+    Display.println(httpResponseCode);
   } else {
-    Serial.print("HTTP Request failed. Error code: ");
-    Serial.println(httpResponseCode);
+    Display.print("HTTP Request failed. Error code: ");
+    Display.println(httpResponseCode);
   }
 
   http.end();

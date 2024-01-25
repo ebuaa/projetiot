@@ -100,7 +100,8 @@ def recuperer_utilisateurs():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    json = open(url_for('projetiot', filename='data.json'))
+    data = json.load
 
 
 if __name__ == "__main__":

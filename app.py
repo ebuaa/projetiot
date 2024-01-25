@@ -32,10 +32,10 @@ def connect_db():
     return sqlite3.connect('weather.db')
 
 
-def ajouter_utilisateur(nom_utilisateur, mot_de_passe):
+def ajouter_utilisateur(nom_utilisateur, mot_de_passe, email):
     with connect_db() as db:
         cursor = db.cursor()
-        cursor.execute('INSERT INTO utilisateurs (nom_utilisateur, mot_de_passe) VALUES (?, ?)', (nom_utilisateur, mot_de_passe))
+        cursor.execute('INSERT INTO utilisateurs (nom_utilisateur, mot_de_passe, email) VALUES (?, ?, ?)', (nom_utilisateur, mot_de_passe, email))
         db.commit()
 
 def obtenir_utilisateur(nom_utilisateur):
@@ -59,13 +59,14 @@ def register():
     if request.method == 'POST':
         nom_utilisateur = request.form['nom_utilisateur']
         mot_de_passe = request.form['mot_de_passe']
+        email = request.form['email']
 
-        if not nom_utilisateur or not mot_de_passe:
+        if not nom_utilisateur or not mot_de_passe or not email:
             return render_template('register.html')
         elif obtenir_utilisateur(nom_utilisateur):
             return render_template('register.html')
         else:
-            ajouter_utilisateur(nom_utilisateur, mot_de_passe)
+            ajouter_utilisateur(nom_utilisateur, mot_de_passe, email)
             return redirect(url_for('login'))
 
     return render_template('register.html')

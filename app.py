@@ -60,42 +60,42 @@ def recuperer_releves():
 
 # Ajouter des utilisateurs 
 
-@app.route('/api/utilisateurs', methods=['POST'])
-def ajouter_utilisateurs():
-    identifiant = request.json['identifiant']
-    mot_de_passe = request.json['mot_de_passe']
+# @app.route('/api/utilisateurs', methods=['POST'])
+# def ajouter_utilisateurs():
+#     identifiant = request.json['identifiant']
+#     mot_de_passe = request.json['mot_de_passe']
  
-    conn = sqlite3.connect("weather.db")
-    cursor = conn.cursor()
-    cursor.execute('INSERT INTO Utilisateurs (identiiant_utilisateur, mot_de_passe_utilisateur) VALUES (?,?)', (identifiant,mot_de_passe))
-    conn.commit()
-    conn.close()
+#     conn = sqlite3.connect("weather.db")
+#     cursor = conn.cursor()
+#     cursor.execute('INSERT INTO Utilisateurs (identiiant_utilisateur, mot_de_passe_utilisateur) VALUES (?,?)', (identifiant,mot_de_passe))
+#     conn.commit()
+#     conn.close()
  
-    return jsonify({
-         "message": "Utilisateur ajouté"
-      })
+#     return jsonify({
+#          "message": "Utilisateur ajouté"
+#       })
  
 # Récupérer les utilisateurs 
 
-@app.route('/api/utilisateurs/', methods=['GET'])
-def recuperer_utilisateurs():
-    conn = sqlite3.connect("weather.db")
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM Utilisateurs')
-    utilisateurs = cursor.fetchall()
-    conn.close()
+# @app.route('/api/utilisateurs/', methods=['GET'])
+# def recuperer_utilisateurs():
+#     conn = sqlite3.connect("weather.db")
+#     cursor = conn.cursor()
+#     cursor.execute('SELECT * FROM Utilisateurs')
+#     utilisateurs = cursor.fetchall()
+#     conn.close()
  
-    liste_utilisateurs = []
+#     liste_utilisateurs = []
  
-    for utilisateur in utilisateurs:
-        dictionnaire_utilisateurs = {'id' : utilisateur[0],
-                                    'identifiant': utilisateur[1],
-                                    'mot_de_passe': utilisateur[2]
-                                    }
-        liste_utilisateurs.append(dictionnaire_utilisateurs)
+#     for utilisateur in utilisateurs:
+#         dictionnaire_utilisateurs = {'id' : utilisateur[0],
+#                                     'identifiant': utilisateur[1],
+#                                     'mot_de_passe': utilisateur[2]
+#                                     }
+#         liste_utilisateurs.append(dictionnaire_utilisateurs)
  
  
-    return jsonify(liste_utilisateurs)
+#     return jsonify(liste_utilisateurs)
 
 
 

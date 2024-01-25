@@ -52,9 +52,8 @@ def recuperer_releves():
                                 'id_sonde' : releve[4]
                                 }
         liste_releves.append(dictionnaire_releves)
- 
- 
-    return jsonify(liste_releves)
+
+    return render_template('index.html', liste_releves=liste_releves)
 
 
 # Ajouter des utilisateurs 
@@ -95,6 +94,8 @@ def recuperer_utilisateurs():
  
  
     return jsonify(liste_utilisateurs)
+
+
 
 @app.route('/')
 def index():

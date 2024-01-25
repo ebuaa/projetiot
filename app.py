@@ -18,20 +18,24 @@ def write_json():
 
 @app.route('/api/releves', methods=['POST'])
 def ajouter_releve():
-    humidite = request.json['humidite']
-    temperature = request.json['temperature']
-    pression = request.json['pression']
-    id_sonde = request.json['id_sonde']
- 
+    data = request.json  # Utilisez directement le JSON complet pour éviter les erreurs liées à la casse
+    humidite = data.get('Humidite')
+    temperature = data.get('Temperature')
+    pression = data.get('Pression')
+    id_sonde = data.get('id_sonde')
+
+    if None in (humidite, temperature, pression, id_sonde):
+        return jsonify({"error": "Les données requises sont manquantes ou incorrectes"}), 400
+
     conn = sqlite3.connect("weather.db")
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO Releves (humidite, temperature, pression, id_sonde) VALUES (?,?,?,?)', (humidite, temperature, pression, id_sonde))
+    cursor.execute('INSERT INTO Releves (humidite, temperature, pression, id_sonde) VALUES (?,?,?,?)',
+                   (humidite, temperature, pression, id_sonde))
     conn.commit()
     conn.close()
- 
-    return jsonify({
-         "message": "Relevé ajouté"
-      })
+
+    return jsonify({"message": "Relevé ajouté"})
+
  
  
 # Récupérer les relevés
@@ -104,7 +108,7 @@ def index():
     try:
         with open('data.json') as f:
             data = json.load(f)
-
+            
         return render_template('index.html', temperature=data.get('Temperature', ''), humidite=data.get('Humidite', ''),
                                pression=data.get('Pression', ''))
     except FileNotFoundError:

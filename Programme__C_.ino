@@ -152,7 +152,7 @@ void createJSONFile() {
 
   http.begin(client, "http://172.20.10.2/writejson");
 
-  http.addHeader("Content-Type": "application/json");
+  http.addHeader("Content-Type", "application/json");
 
   int httpResponseCode = http.POST(jsonString);
 

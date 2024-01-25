@@ -8,8 +8,14 @@ app = Flask(__name__, template_folder='templates')
 def write_json():
     data = request.get_json()
     print("Received JSON data:", data)
+    modified_str =''
+    for char in str(data):
+        if char == "'":
+            modified_str += '"'
+        else:
+            modified_str += char
     with open('data.json', 'w') as json_file:
-        json_file.write(str(data))
+        json_file.write(str(modified_str))
 
     return "JSON data received successfully"
  

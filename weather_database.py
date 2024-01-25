@@ -10,7 +10,7 @@ cursor.execute('''
     CREATE TABLE IF NOT EXISTS Utilisateurs
     (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        identifiant TEXT NOT NULL,
+        nom_utilisateur TEXT NOT NULL,
         mot_de_passe TEXT NOT NULL
     )
 ''')

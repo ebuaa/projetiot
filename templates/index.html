@@ -127,6 +127,10 @@
       });
   }
 
+  setTimeout(function() {
+            window.location.reload(1);
+        }, 120000);
+
   // Create charts
   createChart('temperatureChart', 'Temperature', temperatureData, "#f4511e");
   createChart('humidityChart', 'Humidity', humidityData, " #039be5");

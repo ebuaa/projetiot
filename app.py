@@ -53,9 +53,7 @@ def recuperer_releves():
                                 }
         liste_releves.append(dictionnaire_releves)
         
-    return jsonify(liste_releves)
-
-    return render_template('index.html', humidite=humidite, temperature=temperature, pression=pression)
+    return render_template('index.html', releves=liste_releves)
 
 
 # Ajouter des utilisateurs 

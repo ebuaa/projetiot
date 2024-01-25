@@ -100,7 +100,7 @@ def recuperer_utilisateurs():
 
 @app.route('/')
 def index():
-    with app.open_resource('projetiot/data.json') as f:
+    with app.open_resource('data.json') as f:
         data = json.load(f)
     return data 
 

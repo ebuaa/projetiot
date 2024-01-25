@@ -6,15 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Auth-Login{% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
 
-<body>
+<body class="container">
+    <nav>
+        <ul>
+            <li><strong>Projet IoT</strong></li>
+        </ul>
+        <ul>
+            <li>
+                <details role="list">
+                    <summary aria-haspopup="listbox">Theme</summary>
+                    <ul role="listbox">
+                        <li><a href="#" data-theme-switcher="auto">Auto</a></li>
+                        <li><a href="#" data-theme-switcher="light"><i data-feather="sun"></i></a></li>
+                        <li><a href="#" data-theme-switcher="dark"><i data-feather="moon"></i></a></li>
+                    </ul>
+                </details>
+            </li>
+        </ul>
+    </nav>
+
     <main>
         {% block body %}
 
         {% endblock %}
     </main>
+    <script src="{{ url_for('static', filename='minimal-theme-switcher.js') }}"></script>
+    <script>
+        feather.replace();
+    </script>
 </body>
 
 </html>

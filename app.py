@@ -116,8 +116,8 @@ def index():
         with open('data.json') as f:
             data = json.load(f)
             
-        return render_template('index.html', temperature=data.get('temperature', ''), humidite=data.get('humidite', ''),
-                               pression=data.get('pression', ''))
+        return render_template('index.html', temperature=data.get('Temperature', ''), humidite=data.get('Humidite', ''),
+                               pression=data.get('Pression', ''))
     except FileNotFoundError:
         return "No data available."
 

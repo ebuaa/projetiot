@@ -7,6 +7,15 @@
         text-align: center;
         padding: 10px;
     }
+
+  .last-update {
+      width: 100%;
+      text-align: right;
+      top: 30px;
+      right: 10px;
+      font-size: 0.6em;
+      color: #666;
+  }
 </style>
 
 <div class="graphs-flexbox-grid">
@@ -83,6 +92,11 @@
   </table>
 </figure>
 </article>
+
+<div class="last-update">
+  Dernière actualisation le : {{ current_time }}
+</div>
+
 
 <script>
   // Use Jinja templating to pass Flask variables to JavaScript

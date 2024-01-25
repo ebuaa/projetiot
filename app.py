@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import sqlite3
-import os
+import json
  
 app = Flask(__name__, template_folder='templates')
 
@@ -100,8 +100,10 @@ def recuperer_utilisateurs():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    with open('data.json') as f:
+        data = json.load(f)
 
+    return render_template('index.html', temperature=data['Temperature'], humidite=data['Humidite'], pression=data['Pression'])
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

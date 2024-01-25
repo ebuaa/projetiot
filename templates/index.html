@@ -78,26 +78,32 @@
 </article>
 
 <script>
-  // Sample data, replace with your actual data
-  var temperatureData = {{ temperature | tojson}};
-  var humidityData = {{ humidite | tojson}};
-  var pressureData = {{ pression | tojson}};
-
+  // Use Jinja templating to pass Flask variables to JavaScript
+  var temperatureData = [{{ temperature|default('') }}];
+  var humidityData = [{{ humidity|default('') }}];
+  var pressureData = [{{ pression|default('') }}];
 
   // Function to create a chart
   function createChart(canvasId, label, data, color) {
-    var ctx = document.getElementById(canvasId).getContext('2d');
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['1', '2', '3', '4', '5'],
-        datasets: [{
-          label: label,
-          borderColor: color,
-          data: data,
-        }]
-      }
-    });
+      var ctx = document.getElementById(canvasId).getContext('2d');
+      new Chart(ctx, {
+          type: 'bar',  // Use bar chart type
+          data: {
+              labels: [label], // Use the label as the only x-axis point
+              datasets: [{
+                  label: label,
+                  backgroundColor: color,  // Set bar color
+                  data: data,
+              }]
+          },
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true  // Start y-axis at zero
+                  }
+              }
+          }
+      });
   }
 
   // Create charts

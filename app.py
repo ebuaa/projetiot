@@ -3,24 +3,14 @@ import sqlite3
  
 app = Flask(__name__, template_folder='templates')
 
-@app.route('/writejson', methods=['GET'])
-def writable():
-    try:
-        temperature_moyenne = request.json.get('Temperature_moyenne')
-        humidite_moyenne = request.json.get('Humidite_moyenne')
-        pression_moyenne = request.json.get('Pression_moyenne')
+@app.route('/writejson', methods=['POST'])
+def write_json():
+    data = request.get_json()
+    print("Received JSON data:", data)
+    with open('data.json', 'w') as json_file:
+        json_file.write(str(data))
 
-        conn = sqlite3.connect("weather.db")
-        cursor = conn.cursor()
-        cursor.execute('INSERT INTO Releves (temperature, humidite, pression) VALUES (?,?,?)',
-                       (temperature_moyenne, humidite_moyenne, pression_moyenne))
-        conn.commit()
-        conn.close()
-
-        return jsonify({"message": "Data received successfully"})
-
-    except Exception as e:
-        return jsonify({"error": str(e)})
+    return "JSON data received successfully"
  
  # Ajouter les relevés 
 

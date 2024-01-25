@@ -1,7 +1,12 @@
 from flask import Flask, render_template, request, jsonify
 import sqlite3
+import os
  
 app = Flask(__name__, template_folder='templates')
+
+os.system('python3 weather_database.py')
+print('Base de donnée créée')
+
 
 @app.route('/writejson', methods=['POST'])
 def write_json():
@@ -16,9 +21,9 @@ def write_json():
 
 @app.route('/api/releves', methods=['POST'])
 def ajouter_releve():
-    humidite = request.json['Humidite']
-    temperature = request.json['Temperature']
-    pression = request.json['Pression']
+    humidite = request.json['humidite']
+    temperature = request.json['temperature']
+    pression = request.json['pression']
     id_sonde = request.json['id_sonde']
  
     conn = sqlite3.connect("weather.db")

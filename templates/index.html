@@ -79,9 +79,9 @@
 
 <script>
   // Sample data, replace with your actual data
-  var temperatureData = {{Temperature}}; 
-  var humidityData = {{Humidite}} ; 
-  var pressureData = {{Pression}} ; 
+  var temperatureData = {{ temperature | tojson | safe }};
+  var humidityData = {{ humidite | tojson | safe }};
+  var pressureData = {{ pression | tojson | safe }};
 
 
   // Function to create a chart

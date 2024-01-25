@@ -4,12 +4,15 @@ import json
  
 app = Flask(__name__, template_folder='templates')
 
-# @app.route('/writejson', methods=['POST'])
-# def write_json():
-#     data = request.get_json()
-#     print("Received JSON data:", data)
-#     with open('data.json', 'w') as json_file:
-#         json_file.write(str(data))
+@app.route('/writejson', methods=['POST'])
+def write_json():
+    data = request.get_json()
+    print("Received JSON data:", data)
+    with open('data.json', 'w') as json_file:
+        json.dump(data, json_file)
+
+    return "JSON data received and written successfully"
+
  
  # Ajouter les relevés 
 

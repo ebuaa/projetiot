@@ -27,7 +27,15 @@
                     </ul>
                 </details>
             </li>
-            <li><a href="/login" class="outline contrast" role="button">Login<i data-feather="log-in"></i></a></li>
+            {% if user_info %}
+            <li>
+                <p>Bonjour, {{ user_info['username'] }}!</p>
+            </li>
+            {% else %}
+            <li>
+                <a href="/login" class="outline contrast" role="button">Login<i data-feather="log-in"></i></a>
+            </li>
+            {% endif %}
         </ul>
     </nav>
 

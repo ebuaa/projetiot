@@ -59,9 +59,9 @@ def recuperer_releves():
  
     for releve in releves:
         dictionnaire_releves = {'id' : releve[0],
-                                'humidite': releve[1],
-                                'temperature': releve[2],
-                                'pression': releve[3],
+                                'Humidite': releve[1],
+                                'Temperature': releve[2],
+                                'Pression': releve[3],
                                 'id_sonde' : releve[4]
                                 }
         liste_releves.append(dictionnaire_releves)

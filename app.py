@@ -16,9 +16,9 @@ def write_json():
 
 @app.route('/api/releves', methods=['POST'])
 def ajouter_releve():
-    humidite = request.json['humidite']
-    temperature = request.json['temperature']
-    pression = request.json['pression']
+    humidite = request.json['Humidite']
+    temperature = request.json['Temperature']
+    pression = request.json['Pression']
     id_sonde = request.json['id_sonde']
  
     conn = sqlite3.connect("weather.db")

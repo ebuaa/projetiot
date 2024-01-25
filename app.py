@@ -22,9 +22,9 @@ def ajouter_releve():
         data = request.json
         print("Received JSON data:", data)
 
-        humidite = data.get('Humidite')
-        temperature = data.get('Temperature')
-        pression = data.get('Pression')
+        humidite = data.get('humidite')
+        temperature = data.get('temperature')
+        pression = data.get('rression')
         id_sonde = data.get('id_sonde')
 
         if None in (humidite, temperature, pression, id_sonde):
@@ -59,9 +59,9 @@ def recuperer_releves():
  
     for releve in releves:
         dictionnaire_releves = {'id' : releve[0],
-                                'Humidite': releve[1],
-                                'Temperature': releve[2],
-                                'Pression': releve[3],
+                                'humidite': releve[1],
+                                'temperature': releve[2],
+                                'pression': releve[3],
                                 'id_sonde' : releve[4]
                                 }
         liste_releves.append(dictionnaire_releves)
@@ -116,8 +116,8 @@ def index():
         with open('data.json') as f:
             data = json.load(f)
             
-        return render_template('index.html', temperature=data.get('Temperature', ''), humidite=data.get('Humidite', ''),
-                               pression=data.get('Pression', ''))
+        return render_template('index.html', temperature=data.get('temperature', ''), humidite=data.get('humidite', ''),
+                               pression=data.get('pression', ''))
     except FileNotFoundError:
         return "No data available."
 

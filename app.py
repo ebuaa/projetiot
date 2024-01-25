@@ -4,10 +4,6 @@ import os
  
 app = Flask(__name__, template_folder='templates')
 
-os.system('python3 weather_database.py')
-print('Base de donnée créée')
-
-
 @app.route('/writejson', methods=['POST'])
 def write_json():
     data = request.get_json()

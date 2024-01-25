@@ -22,9 +22,9 @@ def ajouter_releve():
         data = request.json
         print("Received JSON data:", data)
 
-        humidite = data.get('humidite')
-        temperature = data.get('temperature')
-        pression = data.get('rression')
+        humidite = data.get('Humidite')
+        temperature = data.get('Temperature')
+        pression = data.get('Pression')
         id_sonde = data.get('id_sonde')
 
         if None in (humidite, temperature, pression, id_sonde):

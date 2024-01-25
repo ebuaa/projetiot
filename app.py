@@ -96,6 +96,8 @@ def login():
 
 @app.route('/home')
 def index():
+    user_info = get_user_info()
+    
     connection = sqlite3.connect('weather.db')
     cursor = connection.cursor()
 
@@ -110,7 +112,7 @@ def index():
     current_time = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
     return render_template('index.html', temperature=temperature, humidite=humidite,
-                            pression=pression, current_time=current_time)
+                            pression=pression, current_time=current_time, user_info=user_info)
 
 
 if __name__ == "__main__":

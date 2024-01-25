@@ -52,8 +52,10 @@ def recuperer_releves():
                                 'id_sonde' : releve[4]
                                 }
         liste_releves.append(dictionnaire_releves)
+        
+    return jsonify(liste_releves)
 
-    return render_template('index.html', liste_releves=liste_releves)
+    return render_template('index.html', humidite=humidite, temperature=temperature, pression=pression)
 
 
 # Ajouter des utilisateurs 

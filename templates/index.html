@@ -91,28 +91,6 @@
               </tr> -->
     </tfoot>
   </table>
-  <table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Humidité</th>
-            <th>Température</th>
-            <th>Pression</th>
-            <th>ID Sonde</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for releve in liste_releves %}
-            <tr>
-                <td>{{ releve.id }}</td>
-                <td>{{ releve.humidite }}</td>
-                <td>{{ releve.temperature }}</td>
-                <td>{{ releve.pression }}</td>
-                <td>{{ releve.id_sonde }}</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
 </figure>
 </article>
 

@@ -17,7 +17,7 @@ def write_json():
     with open('data.json', 'w') as json_file:
         json_file.write(str(modified_str))
 
-    return "JSON data received successfully"
+    return render_template('index.html', temperature=data['Temperature'], humidite=data['Humidite'], pression=data['Pression'])
  
  # Ajouter les relevés 
 
@@ -104,10 +104,6 @@ def recuperer_utilisateurs():
 
 
 
-@app.route('/')
-def index():
-    with open('data.json') as f:
-        data = json.load(f)
 
     return render_template('index.html', temperature=data['Temperature'], humidite=data['Humidite'], pression=data['Pression'])
 

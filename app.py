@@ -102,10 +102,5 @@ def recuperer_utilisateurs():
  
     return jsonify(liste_utilisateurs)
 
-
-
-
-    return render_template('index.html', temperature=data['Temperature'], humidite=data['Humidite'], pression=data['Pression'])
-
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

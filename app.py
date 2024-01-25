@@ -33,7 +33,7 @@ def ajouter_releves():
 
         cursor = connection.cursor()
 
-        cursor.execute('INSERT INTO Releves (temperature, humidite, pression) VALUES ("' + str(temperature) + '","' + str(humidite) + '","' + str(pression) + '")')
+        cursor.execute('INSERT INTO Releves (temperature, humidite, pression) VALUES ("' + temperature + '","' + humidite + '","' + pression + '")')
         connection.commit()
         connection.close()
 

@@ -4,7 +4,7 @@ import json
  
 app = Flask(__name__, template_folder='templates')
 
-@app.route('/writejson', methods=['POST'])
+@app.route('/', methods=['POST'])
 def write_json():
     data = request.get_json()
     print("Received JSON data:", data)

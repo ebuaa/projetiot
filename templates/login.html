@@ -5,7 +5,26 @@
 {% block body %}
 
 <article>
+    <form class="container" method="post" action="{{ url_for('login') }}">
 
+        <h1>Se connecter</h1>
+        <div class="grid">
+
+            <label for="nom_utilisateur">
+                Nom d'utilisateur
+                <input type="text" id="nom_utilisateur" name="nom_utilisateur" placeholder="Nom d'utilisateur" required>
+            </label>
+
+            <label for="mot_de_passe">
+                Mot de passe
+                <input type="password" id="mot_de_passe" name="mot_de_passe" placeholder="Mot de passe" required>
+            </label>
+
+        </div>
+
+        <button type="submit">Se connecter</button>
+
+    </form>
 </article>
 
 {% endblock %}

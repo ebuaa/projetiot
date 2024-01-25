@@ -31,9 +31,7 @@ cursor.execute('''
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         humidite INT NOT NULL,
         temperature FLOAT NOT NULL,
-        pression FLOAT NOT NULL,
-        id_sonde INTEGER NOT NULL,
-        FOREIGN KEY(id_sonde) REFERENCES Sonde(id_sonde)
+        pression FLOAT NOT NULL
     )
 ''')
 

@@ -18,23 +18,30 @@ def write_json():
 
 @app.route('/api/releves', methods=['POST'])
 def ajouter_releve():
-    data = request.json  # Utilisez directement le JSON complet pour éviter les erreurs liées à la casse
-    humidite = data.get('Humidite')
-    temperature = data.get('Temperature')
-    pression = data.get('Pression')
-    id_sonde = data.get('id_sonde')
+    try:
+        data = request.json
+        print("Received JSON data:", data)
 
-    if None in (humidite, temperature, pression, id_sonde):
-        return jsonify({"error": "Les données requises sont manquantes ou incorrectes"}), 400
+        humidite = data.get('Humidite')
+        temperature = data.get('Temperature')
+        pression = data.get('Pression')
+        id_sonde = data.get('id_sonde')
 
-    conn = sqlite3.connect("weather.db")
-    cursor = conn.cursor()
-    cursor.execute('INSERT INTO Releves (humidite, temperature, pression, id_sonde) VALUES (?,?,?,?)',
-                   (humidite, temperature, pression, id_sonde))
-    conn.commit()
-    conn.close()
+        if None in (humidite, temperature, pression, id_sonde):
+            return jsonify({"error": "Les données requises sont manquantes ou incorrectes"}), 400
 
-    return jsonify({"message": "Relevé ajouté"})
+        conn = sqlite3.connect("weather.db")
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO Releves (humidite, temperature, pression, id_sonde) VALUES (?,?,?,?)',
+                       (humidite, temperature, pression, id_sonde))
+        conn.commit()
+        conn.close()
+
+        return jsonify({"message": "Relevé ajouté"})
+
+    except Exception as e:
+        print("Error:", e)
+        return jsonify({"error": "Une erreur s'est produite lors du traitement de la requête"}), 500
 
  
  

@@ -2,40 +2,25 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for
 import sqlite3
 import json
 import flask
+from datetime import datetime
  
 app = Flask(__name__, template_folder='templates')
 
 current_user = None
 
-
-# Récupération fichier JSON 
-
-
-@app.route('/writejson', methods=['POST'])
-def write_json():
-    data = request.get_json()
-    print("Received JSON data:", data)
-    with open('data.json', 'w') as json_file:
-        json.dump(data, json_file)
-
-    return "JSON data received and written successfully"
-
- 
  # Ajout des relevés dans la table Releves
-
 @app.route('/api/ajout', methods=['POST'])
 def ajouter_releves():
-
-    if flask.request.method == 'POST':
-        temperature = flask.request.json['temperature']
-        humidite = flask.request.json['humidite']
-        pression = flask.request.json['pression']
+    if request.method == 'POST':
+        data = request.get_json()
+        temperature = data['temperature']
+        humidite = data['humidite']
+        pression = data['pression']
 
         connection = sqlite3.connect('weather.db')
-
         cursor = connection.cursor()
 
-        cursor.execute('INSERT INTO Releves (temperature, humidite, pression) VALUES ("' + temperature + '","' + humidite + '","' + pression + '")')
+        cursor.execute('INSERT INTO Releves (temperature, humidite, pression) VALUES (?, ?, ?)', (temperature, humidite, pression))
         connection.commit()
         connection.close()
 
@@ -67,6 +52,8 @@ def get_user_info():
     global current_user
     return current_user
 
+# Enregistrement utilisateur 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -82,6 +69,8 @@ def register():
             return redirect(url_for('login'))
 
     return render_template('register.html')
+
+# Connexion utilisateur 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -105,17 +94,23 @@ def login():
 # Récupération et affichage des données sur le site 
 
 
-@app.route('/')
+@app.route('/home')
 def index():
-    user_info = get_user_info
-    try:
-        with open('data.json') as f:
-            data = json.load(f)
-            
-        return render_template('index.html', user_info=user_info,temperature=data.get('temperature', ''), humidite=data.get('humidite', ''),
-                               pression=data.get('pression', ''))
-    except FileNotFoundError:
-        return "No data available."
+    connection = sqlite3.connect('weather.db')
+    cursor = connection.cursor()
+
+    cursor.execute('SELECT temperature, humidite, pression FROM Releves ORDER BY id DESC LIMIT 1')
+    data = cursor.fetchone()
+    connection.close()
+    if data:
+        temperature, humidite, pression = data
+    else:
+        temperature, humidite, pression = '', '', ''
+
+    current_time = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+
+    return render_template('index.html', temperature=temperature, humidite=humidite,
+                            pression=pression, current_time=current_time)
 
 
 if __name__ == "__main__":

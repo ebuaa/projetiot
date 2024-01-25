@@ -2,6 +2,13 @@
 {% block title %}Accueil - Weather IoT{% endblock %}
 {% block content %}
 
+<style>
+  th, td {
+        text-align: center;
+        padding: 10px;
+    }
+</style>
+
 <div class="graphs-flexbox-grid">
   <div>
     <canvas id="temperatureChart"></canvas>
@@ -58,9 +65,9 @@
     <tbody>
       <tr>
         <th scope="row"></th>
-        <td>{{temperature}}</td>
-        <td>{{humidite}}</td>
-        <td>{{pression}}</td>
+          <td class="text-center">{{temperature}} °C</td>
+          <td class="text-center">{{humidite}} %</td>
+          <td class="text-center">{{pression}} hpa</td>
       </tr>
     </tbody>
     <tfoot>

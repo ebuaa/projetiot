@@ -140,9 +140,9 @@ void calculateAndDisplayAverages() {
 void createJSONFile() {
   DynamicJsonDocument doc(1024);
 
-  doc["Temperature_moyenne"] = Temperature_moyenne;
-  doc["Humidite_moyenne"] = Humidite_moyenne;
-  doc["Pression_moyenne"] = Pression_moyenne;
+  doc["temperature"] = Temperature_moyenne;
+  doc["humidite"] = Humidite_moyenne;
+  doc["pression"] = Pression_moyenne;
 
   String jsonString;
   serializeJson(doc, jsonString);
@@ -152,7 +152,7 @@ void createJSONFile() {
 
   http.begin(client, "http://172.20.10.2/writejson");
 
-  http.addHeader("Content-Type", "application/json");
+  http.addHeader("Content-Type": "application/json");
 
   int httpResponseCode = http.POST(jsonString);
 

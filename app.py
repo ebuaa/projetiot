@@ -8,7 +8,10 @@ app = Flask(__name__, template_folder='templates')
 
 current_user = None
 
- # Ajout des relevés dans la table Releves
+
+
+# Ajout des relevés dans la table Releves
+
 @app.route('/api/ajout', methods=['POST'])
 def ajouter_releves():
     if request.method == 'POST':
@@ -28,6 +31,7 @@ def ajouter_releves():
     
     
 #Utilisateurs
+
 def connect_db():
     return sqlite3.connect('weather.db')
 

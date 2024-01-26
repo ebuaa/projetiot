@@ -101,8 +101,8 @@
 <script>
   // Use Jinja templating to pass Flask variables to JavaScript
   var temperatureData = [{{ temperature|float|default(0) }}];
-var humidityData = [{{ humidite|float|default(0) }}];
-var pressureData = [{{ pression|float|default(0) }}];
+  var humidityData = [{{ humidite|float|default(0) }}];
+  var pressureData = [{{ pression|float|default(0) }}];
 
   // Function to create a chart
   function createChart(canvasId, label, data, color) {

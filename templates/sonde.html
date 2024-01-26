@@ -3,6 +3,16 @@
 
 {% block content %}
 
+<style>
+    .active-oui {
+        color: green;
+    }
+
+    .active-non {
+        color: red;
+    }
+</style>
+
 <table>
     <thead>
         <tr>
@@ -18,9 +28,9 @@
             <td>{{ row[0] }}</td>
             <td>
                 {% if row[1] == 1 %}
-                    Oui
+                    <span class="active-oui">Oui</span>
                 {% else %}
-                    Non
+                    <span class="active-non">Non</span>
                 {% endif %}
             </td>
         </tr>

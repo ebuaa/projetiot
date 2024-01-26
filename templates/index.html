@@ -74,9 +74,9 @@
     <tbody>
       <tr>
         <th scope="row"></th>
-        <td class="text-center">{{ temperature|default('')|round(2) }} °C</td>
-        <td class="text-center">{{ humidite|default('')|round(2) }} %</td>
-        <td class="text-center">{{ pression|default('')|round(2) }} hpa</td>
+        <td class="text-center">{{ temperature|float|default(0)|round(2) }} °C</td>
+        <td class="text-center">{{ humidite|float|default(0)|round(2) }} %</td>
+        <td class="text-center">{{ pression|float|default(0)|round(2) }} hpa/td>
       </tr>
     </tbody>
     <tfoot>
@@ -100,9 +100,9 @@
 
 <script>
   // Use Jinja templating to pass Flask variables to JavaScript
-  var temperatureData = [{{ temperature|default('') }}];
-  var humidityData = [{{ humidite|default('') }}];
-  var pressureData = [{{ pression|default('') }}];
+  var temperatureData = [{{ temperature|float|default(0) }}];
+var humidityData = [{{ humidite|float|default(0) }}];
+var pressureData = [{{ pression|float|default(0) }}];
 
   // Function to create a chart
   function createChart(canvasId, label, data, color) {

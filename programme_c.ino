@@ -3,25 +3,32 @@
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
-#include <SD.h>
 #include <ArduinoJson.h>
-#include <ESP8266WiFi.h> 
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+#include <NTPClient.h>
+#include <WiFiUdp.h>
 
-#define SCREEN_WIDTH 128  
-#define SCREEN_HEIGHT 64  
-
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
 
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
-// Declaration pour BME280 sensor
+// Declaration for BME280 sensor
 Adafruit_BME280 bme;
+
+const long utcOffsetInSeconds = 3600;
+
+char daysOfTheWeek[7][12] = {"Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"};
+
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds);
 
 float Temperature_moyenne = 0.0;
 float Humidite_moyenne = 0.0;
 float Pression_moyenne = 0.0;
 int Compteur = 0;
-
 
 void calculateAndDisplayAverages();
 void createJSONFile();
@@ -30,7 +37,7 @@ void setup() {
   Serial.begin(9600);
   Wire.pins(0, 2);
   Wire.begin();
-    if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {  
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
     Serial.println(F("SSD1306 allocation failed"));
     for (;;)
       ;
@@ -40,7 +47,6 @@ void setup() {
   display.setTextColor(WHITE);
   display.setCursor(0, 0);
   display.display();
-  
 
   WiFi.begin("iPhone de Axel", "rivenisbae");
 
@@ -53,19 +59,17 @@ void setup() {
   }
   display.println();
 
+  timeClient.begin();
+
   display.print("Connected, IP address: ");
   display.println(WiFi.localIP());
   display.display();
-  
 
-
-
-  if (!bme.begin(0x76)) {  // BME280 address may vary, use 0x76 or 0x77
+  if (!bme.begin(0x76)) {
     Serial.println("Could not find a valid BME280 sensor, check wiring!");
     while (1)
       ;
   }
- 
 
   delay(5000);
   display.clearDisplay();
@@ -76,14 +80,23 @@ void setup() {
 }
 
 void loop() {
-
   float temperature = bme.readTemperature();
   float humidite = bme.readHumidity();
-  float Pression = bme.readPressure() / 100.0F;  
+  float Pression = bme.readPressure() / 100.0F;
+  timeClient.update();
 
 
   display.clearDisplay();
-  //pour définir le curseur (ici x = 0 et y = 10) pour que sur l'écran ca commence a afficher a partir de (0,10)
+  display.setCursor(0, 0);
+  display.print(daysOfTheWeek[timeClient.getDay()]);
+  display.print(", ");
+  display.print(timeClient.getHours());
+  display.print(":");
+  display.print(timeClient.getMinutes());
+  display.print(":");
+  display.println(timeClient.getSeconds());
+
+
   display.setCursor(0, 10);
   display.print("Temperature: ");
   display.print(temperature);
@@ -101,26 +114,22 @@ void loop() {
 
   display.display();
 
+  delay(1000);
 
-  delay(5000);
-
- 
   Compteur++;
   Temperature_moyenne += temperature;
   Humidite_moyenne += humidite;
   Pression_moyenne += Pression;
 
-  if (Compteur == 6) { 
+  if (Compteur == 20) {
     calculateAndDisplayAverages();
   }
 }
 
 void calculateAndDisplayAverages() {
-
   Temperature_moyenne /= Compteur;
   Humidite_moyenne /= Compteur;
   Pression_moyenne /= Compteur;
-
 
   display.clearDisplay();
   display.setCursor(0, 10);
@@ -142,40 +151,38 @@ void calculateAndDisplayAverages() {
 
   delay(5000);
 
+  createJSONFile();
 
   Temperature_moyenne = 0.0;
   Humidite_moyenne = 0.0;
   Pression_moyenne = 0.0;
   Compteur = 0;
-
-
-  createJSONFile();
 }
 
 void createJSONFile() {
-  // une class pour allouer mémoire basé sur la taille 1024
-  DynamicJsonDocument doc(1024);
+  JsonDocument doc;
 
-  // Add data to the JSON document
-  doc["Temperature_moyenne"] = Temperature_moyenne;
-  doc["Humidite_moyenne"] = Humidite_moyenne;
-  doc["Pression_moyenne"] = Pression_moyenne;
+  doc["Temperature"] = Temperature_moyenne;
+  doc["Humidite"] = Humidite_moyenne;
+  doc["Pression"] = Pression_moyenne;
 
-
-
-  // Convertir le data de json en string (lisible)
   String jsonString;
   serializeJson(doc, jsonString);
 
-  // Open a file on the SD card
-  File file = SD.open("sensor_data.json", FILE_WRITE);
+  WiFiClient client;
+  HTTPClient http;
+  http.begin(client, "http://172.20.10.2:5000/api/ajout");
+  http.addHeader("Content-Type", "application/json");
+  int httpResponseCode = http.POST(jsonString);
 
-
-  if (file) {
-    file.println(jsonString);
-    file.close();
-    Serial.println("Fichier JSON créé");
+  if (httpResponseCode > 0) {
+    Serial.print("HTTP Response code: ");
+    Serial.println(httpResponseCode);
   } else {
-    Serial.println("Erreur fichier JSON n'ouvre pas");
+    Serial.print("HTTP Request failed. Error code: ");
+    Serial.println(httpResponseCode);
   }
+
+  http.end();
+
 }

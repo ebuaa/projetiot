@@ -130,7 +130,7 @@ def recuperer_sonde():
 
 # Récupération et affichage des données sur le site 
 
-@app.route('/home')
+@app.route('/')
 def index():
     user_info = get_user_info()
     

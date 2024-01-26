@@ -114,7 +114,16 @@ def ajout_sonde():
     
     
 
+@app.route('/sonde', methods=['GET'])
+def recuperer_sonde():
+    conn = sqlite3.connect('weather.db')  
+    cur = conn.cursor()
 
+    cur.execute("SELECT id_sonde, active FROM Sonde")
+    sonde_data = cur.fetchall()
+
+    conn.close()
+    return render_template('sonde.html', sonde_data)
 
 @app.route('/api/sonde', methods=['GET'])
 def recuperer_sonde():

@@ -16,9 +16,9 @@ current_user = None
 def ajouter_releves():
     if request.method == 'POST':
         data = request.get_json()
-        temperature = data['temperature']
-        humidite = data['humidite']
-        pression = data['pression']
+        temperature = data['Temperature']
+        humidite = data['Humidite']
+        pression = data['Pression']
 
         connection = sqlite3.connect('weather.db')
         cursor = connection.cursor()

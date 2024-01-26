@@ -74,9 +74,9 @@
     <tbody>
       <tr>
         <th scope="row"></th>
-          <td class="text-center">{{temperature}} °C</td>
-          <td class="text-center">{{humidite}} %</td>
-          <td class="text-center">{{pression}} hpa</td>
+        <td class="text-center">{{ temperature|default('')|round(2) }} °C</td>
+        <td class="text-center">{{ humidite|default('')|round(2) }} %</td>
+        <td class="text-center">{{ pression|default('')|round(2) }} hpa</td>
       </tr>
     </tbody>
     <tfoot>

@@ -30,11 +30,15 @@ cursor.execute('''
     CREATE TABLE IF NOT EXISTS Releves
     (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id_sonde INTEGER,
         humidite INT NOT NULL,
         temperature FLOAT NOT NULL,
-        pression FLOAT NOT NULL
+        pression FLOAT NOT NULL,
+        FOREIGN KEY (id_sonde) REFERENCES Sonde(id_sonde)
     )
 ''')
+cursor.execute('INSERT INTO Sonde (id_sonde, active) VALUES (?, ?)', (1, 1))
+
 
 # Valider les insertions dans la base de données
 connection.commit()

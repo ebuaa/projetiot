@@ -11,7 +11,7 @@ cursor.execute('''
     (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         nom_utilisateur TEXT NOT NULL,
-        mot_de_passe TEXT NOT NULL
+        mot_de_passe TEXT NOT NULL,
         email TEXT NOT NULL
     )
 ''')

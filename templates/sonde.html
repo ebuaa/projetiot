@@ -3,9 +3,6 @@
 
 {% block content %}
 
-  
-{{sonde_data}}
-
 <table>
     <thead>
         <tr>
@@ -15,15 +12,20 @@
         </tr>
     </thead>
     <tbody>
+        {% for row in sonde_data %}
         <tr>
-            <th scope="row"></th>
-            <td>{{sonde_data['sonde']}}</td>
-            <td>{{sonde_data['active']}}</td>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ row[0] }}</td>
+            <td>
+                {% if row[1] == 1 %}
+                    Oui
+                {% else %}
+                    Non
+                {% endif %}
+            </td>
         </tr>
+        {% endfor %}
     </tbody>
 </table>
 
 {% endblock %}
-
-
-

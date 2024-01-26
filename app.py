@@ -58,7 +58,7 @@ def get_user_info():
 
 # Enregistrement utilisateur 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])    
 def register():
     if request.method == 'POST':
         nom_utilisateur = request.form['nom_utilisateur']
@@ -94,10 +94,41 @@ def login():
     return render_template('login.html')
 
 
+#Gestion des sondes 
+
+@app.route('/api/ajoutsonde', methods=['POST'])
+def ajout_sonde():
+    if request.method == 'POST':
+        data = request.get_json()
+        id_sonde = data['id_sonde']
+        active = data['active']
+
+        connection = sqlite3.connect('weather.db')
+        cursor = connection.cursor()
+
+        cursor.execute('INSERT INTO Sonde (id_sonde, active) VALUES (?, ?)', (id_sonde, active))
+        connection.commit()
+        connection.close()
+
+        return
+    
+    
+
+
+
+@app.route('/api/sonde', methods=['GET'])
+def recuperer_sonde():
+    conn = sqlite3.connect('weather.db')  
+    cur = conn.cursor()
+
+    cur.execute("SELECT id_sonde, active FROM Sonde")
+    sonde_data = cur.fetchall()
+
+    conn.close()
+    return sonde_data
 
 
 # Récupération et affichage des données sur le site 
-
 
 @app.route('/home')
 def index():
